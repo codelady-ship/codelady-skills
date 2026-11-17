@@ -1,0 +1,19 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "codelady-skills",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-10-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "observability": { "enabled": true },
+  // Cloudflare Workers AI: free daily allowance, no API key (last free fallback in src/server/llm.ts)
+  "ai": { "binding": "AI" },
+  // Public, non-secret settings. Secrets (GEMINI_API_KEY, GROQ_API_KEY, OPENROUTER_API_KEY,
+  // Supabase and Lemon Squeezy keys) go in with:  npx wrangler secret put GEMINI_API_KEY
+  // Marketplace settings and secrets: docs/MARKETPLACE.md and .env.example.
+  // MOCK_AUTH must stay "0" here: mock sign-in and test payments are for local work only.
+  "vars": {
+    "MOCK_AUTH": "0",
+    "RUN_LIMIT_PER_HOUR": "20"
+  }
+}

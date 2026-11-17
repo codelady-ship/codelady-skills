@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="az">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Codelady Skills</title>
+<style>
+  :root { color-scheme: light dark; --paper:#f5f0e6; --ink:#16213a; --ink2:#4c5670; }
+  @media (prefers-color-scheme: dark) { :root { --paper:#12171f; --ink:#efe9dc; --ink2:#a9b0bf; } }
+  body { margin:0; min-height:100dvh; display:grid; place-items:center; background:var(--paper); color:var(--ink);
+         font:17px/1.5 system-ui, sans-serif; padding:24px; box-sizing:border-box; text-align:center; }
+  img { width:64px; height:64px; border-radius:14px; }
+  p { color:var(--ink2); margin:.4em 0; }
+  button { margin-top:16px; min-height:48px; padding:0 22px; border-radius:10px; border:0; background:var(--ink); color:var(--paper); font:inherit; }
+</style>
+</head>
+<body>
+<main>
+  <img src="/icons/icon-192.png" alt="">
+  <h1 id="t" style="font-size:1.4rem;margin:.6em 0 .2em">İnternet yoxdur</h1>
+  <p id="d">Bağlantı gələndə yenidən yoxla.</p>
+  <button id="b" onclick="location.reload()">↻ Yenidən yoxla</button>
+</main>
+<script>
+  // Language: the page address (/en/...), then the saved choice, then Azerbaijani
+  var T = {"az":["İnternet yoxdur","Bağlantı gələndə yenidən yoxla.","Yenidən yoxla"],"en":["You’re offline","Try again when you’re connected.","Try again"],"ru":["Нет интернета","Попробуйте снова, когда появится подключение.","Повторить"],"tr":["İnternet yok","Bağlantı gelince tekrar dene.","Tekrar dene"],"de":["Keine Internetverbindung","Versuch es noch einmal, wenn du wieder online bist.","Erneut versuchen"],"fr":["Pas de connexion Internet","Réessayez quand vous serez connecté.","Réessayer"],"es":["Sin conexión a internet","Vuelve a intentarlo cuando tengas conexión.","Reintentar"],"it":["Nessuna connessione a internet","Riprova quando sei di nuovo online.","Riprova"],"pt":["Sem ligação à internet","Tente de novo quando estiver ligado.","Tentar de novo"],"pl":["Brak internetu","Spróbuj ponownie, gdy połączenie wróci.","Spróbuj ponownie"],"uk":["Немає інтернету","Спробуйте ще раз, коли з’явиться підключення.","Спробувати ще"],"kk":["Интернет жоқ","Байланыс болғанда қайта көріңіз.","Қайта көру"],"uz":["Internet yoʻq","Aloqa paydo boʻlganda qayta urinib koʻring.","Qayta urinish"],"ka":["ინტერნეტი არ არის","სცადეთ ხელახლა, როცა კავშირი აღდგება.","ხელახლა ცდა"]};
+  var l = location.pathname.split('/')[1];
+  if (!T[l]) { var m = document.cookie.match(/(?:^|; )lang=([a-z]{2})/); l = m && T[m[1]] ? m[1] : 'az'; }
+  document.documentElement.lang = l;
+  document.getElementById('t').textContent = T[l][0];
+  document.getElementById('d').textContent = T[l][1];
+  document.getElementById('b').textContent = '↻ ' + T[l][2];
+</script>
+</body>
+</html>

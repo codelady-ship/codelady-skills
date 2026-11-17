@@ -1,0 +1,40 @@
+{
+  "name": "codelady-skills",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "sync-skills": "node scripts/sync-skills.mjs",
+    "predev": "node scripts/sync-skills.mjs",
+    "dev": "next dev",
+    "prebuild": "node scripts/sync-skills.mjs",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./tests/helpers/hooks.mjs --test \"tests/*.test.ts\"",
+    "check-i18n": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON --import ./tests/helpers/hooks.mjs scripts/check-i18n.ts",
+    "build:demo": "node scripts/build-demo.mjs"
+  },
+  "dependencies": {
+    "@opennextjs/cloudflare": "^1.20.16",
+    "next": "16.4.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1",
+    "server-only": "^0.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "4.3.3",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.6",
+    "tailwindcss": "4.3.3",
+    "typescript": "^5",
+    "wrangler": "^4.160.0"
+  },
+  "license": "MIT"
+}
