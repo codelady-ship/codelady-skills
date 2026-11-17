@@ -3,6 +3,7 @@ import { EXTRA } from './locales';
 
 const az = {
   metaDescription: 'Saxta təqaüd mesajını yoxla, xaricdə təhsil planı qur, iş üçün müraciət hazırla, azərbaycanca mətni səsləndir.',
+  metaTitle: 'Codelady Skills: təhsil, iş və səsləndirmə üçün AI alətlər',
   skipToMain: 'Əsas hissəyə keç',
   skillsHeading: 'Alətlər',
   groups: { 'Səs': 'Səs', 'Xaricdə təhsil': 'Təhsil və səyahət', 'İş': 'İş', 'Marketinq': 'Marketinq' } as Record<string, string>,
@@ -198,6 +199,7 @@ export type Dict = typeof az;
 
 const en: Dict = {
   metaDescription: 'Check a suspicious scholarship message, plan studies abroad, prepare a job application, turn Azerbaijani text into speech.',
+  metaTitle: 'Codelady Skills: AI tools for study abroad, jobs and voice',
   skipToMain: 'Skip to main content',
   skillsHeading: 'Tools',
   groups: { 'Səs': 'Voice', 'Xaricdə təhsil': 'Study and travel', 'İş': 'Jobs', 'Marketinq': 'Marketing' },
@@ -389,6 +391,7 @@ const en: Dict = {
 
 const ru: Dict = {
   metaDescription: 'Проверьте подозрительное сообщение о стипендии, спланируйте учёбу за рубежом, подготовьте отклик на вакансию, озвучьте текст на азербайджанском.',
+  metaTitle: 'Codelady Skills: ИИ-инструменты для учёбы, работы и озвучки',
   skipToMain: 'Перейти к основному содержанию',
   skillsHeading: 'Инструменты',
   groups: { 'Səs': 'Голос', 'Xaricdə təhsil': 'Учёба и поездки', 'İş': 'Работа', 'Marketinq': 'Маркетинг' },
@@ -580,6 +583,7 @@ const ru: Dict = {
 
 const tr: Dict = {
   metaDescription: 'Şüpheli burs mesajını kontrol et, yurt dışında eğitim planla, iş başvurusu hazırla, Azerbaycanca metni seslendir.',
+  metaTitle: 'Codelady Skills: eğitim, iş ve seslendirme için AI araçları',
   skipToMain: 'Ana içeriğe geç',
   skillsHeading: 'Araçlar',
   groups: { 'Səs': 'Ses', 'Xaricdə təhsil': 'Eğitim ve seyahat', 'İş': 'İş', 'Marketinq': 'Pazarlama' },

@@ -43,8 +43,8 @@ export function MySkillsNav({ lang, variant }: { lang: Locale; variant: 'side' |
   return (
     <div className="mb-5">
       <Link href={`/${lang}/library`}
-        className="mb-4 flex min-h-11 items-center gap-2.5 rounded-md px-2 py-1.5 text-[0.95rem] hover:bg-paper-2 lg:pointer-fine:min-h-0">
-        <span aria-hidden className="grid h-[22px] w-[22px] place-items-center rounded-[6px] bg-teal font-mono text-[0.7rem] text-white">≡</span>
+        className="mb-4 flex min-h-11 items-center gap-2.5 rounded-md px-2 py-1.5 text-[0.95rem] hover:bg-paper-2">
+        <span aria-hidden className="grid h-[22px] w-[22px] place-items-center rounded-[6px] bg-teal font-mono text-[0.75rem] text-white">≡</span>
         {t.library}
       </Link>
       {mine.length > 0 && (
@@ -53,7 +53,7 @@ export function MySkillsNav({ lang, variant }: { lang: Locale; variant: 'side' |
           <ul className="mb-1 space-y-0.5">
             {mine.map((s) => (
               <li key={s.id}>
-                <Link href={`/${lang}/my#${s.id}`} className="flex min-h-11 items-center gap-2.5 rounded-md px-2 py-1.5 text-[0.95rem] hover:bg-paper-2 lg:pointer-fine:min-h-0">
+                <Link href={`/${lang}/my#${s.id}`} className="flex min-h-11 items-center gap-2.5 rounded-md px-2 py-1.5 text-[0.95rem] hover:bg-paper-2">
                   <Mark tone={s.tone} mark={s.mark} size={22} />
                   {s.name}
                 </Link>
@@ -63,7 +63,7 @@ export function MySkillsNav({ lang, variant }: { lang: Locale; variant: 'side' |
         </>
       )}
       <Link href={`/${lang}/add`}
-        className="mt-1 flex min-h-11 items-center gap-2.5 rounded-md border border-dashed border-line px-2 py-2 lg:pointer-fine:min-h-0 text-[0.95rem] text-ink-2 hover:border-ink-2 hover:text-ink">
+        className="mt-1 flex min-h-11 items-center gap-2.5 rounded-md border border-dashed border-line px-2 py-2 text-[0.95rem] text-ink-2 hover:border-ink-2 hover:text-ink">
         <span aria-hidden className="grid h-[22px] w-[22px] place-items-center rounded-[6px] border border-current text-sm leading-none">+</span>
         {t.addSkill}
       </Link>

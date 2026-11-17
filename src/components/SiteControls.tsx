@@ -79,7 +79,7 @@ export function SiteControls({ lang, className = '' }: { lang: Locale; className
             id={listId}
             className="absolute right-0 top-13 z-40 w-56 lg:left-0 lg:right-auto overflow-hidden rounded-xl border border-line bg-card shadow-lg shadow-ink/10"
           >
-            <p className="border-b border-line px-3 py-2 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-ink-2">{t.chooseLanguage}</p>
+            <p className="border-b border-line px-3 py-2 font-mono text-[0.75rem] uppercase tracking-[0.12em] text-ink-2">{t.chooseLanguage}</p>
             <ul className="max-h-72 overflow-y-auto overscroll-contain py-1">
               {LOCALES.map((l) => (
                 <li key={l}>
@@ -93,7 +93,7 @@ export function SiteControls({ lang, className = '' }: { lang: Locale; className
                     }`}
                   >
                     <span lang={l}>{LOCALE_NAME[l]}</span>
-                    <span className="font-mono text-[0.72rem] text-ink-2">{l === lang ? '✓' : LOCALE_LABEL[l]}</span>
+                    <span className="font-mono text-[0.75rem] text-ink-2">{l === lang ? '✓' : LOCALE_LABEL[l]}</span>
                   </Link>
                 </li>
               ))}

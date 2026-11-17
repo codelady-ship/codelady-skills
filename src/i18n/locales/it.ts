@@ -3,6 +3,7 @@ import type { LocalePack } from './types';
 export const pack: LocalePack = {
   ui: {
     metaDescription: 'Controlla un messaggio sospetto su una borsa di studio, pianifica lo studio all’estero, prepara una candidatura di lavoro e trasforma un testo in azero in voce.',
+    metaTitle: 'Codelady Skills: strumenti IA per studio, lavoro e voce',
     skipToMain: 'Vai al contenuto',
     skillsHeading: 'Strumenti',
     groups: { 'Səs': 'Voce', 'Xaricdə təhsil': 'Studio e viaggi', 'İş': 'Lavoro', 'Marketinq': 'Marketing' },

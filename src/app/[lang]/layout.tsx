@@ -7,6 +7,7 @@ import { LOCALES, hasLocale } from '@/i18n/config';
 import { UI } from '@/i18n/ui';
 import '../globals.css';
 import { withBase, IS_DEMO } from '@/lib/base';
+import { OG_IMAGE, SITE_URL } from '@/lib/site';
 import { DemoMode } from '@/demo/DemoMode';
 
 const plex = IBM_Plex_Sans({ variable: '--font-plex', subsets: ['latin', 'latin-ext', 'cyrillic'], weight: ['400', '500', '600'] });
@@ -21,11 +22,14 @@ export async function generateMetadata({ params }: LayoutProps<'/[lang]'>): Prom
   const { lang } = await params;
   if (!hasLocale(lang)) return {};
   return {
-    title: { default: 'Codelady Skills', template: '%s · Codelady Skills' },
+    metadataBase: new URL(`${SITE_URL}/`),
+    title: { default: UI[lang].metaTitle, template: '%s · Codelady Skills' },
     description: UI[lang].metaDescription,
+    // Pages without their own Open Graph block still get the site card.
+    openGraph: { type: 'website', siteName: 'Codelady Skills', images: [OG_IMAGE] },
+    twitter: { card: 'summary_large_image', images: [OG_IMAGE.url] },
     manifest: withBase(`/${lang}/manifest.webmanifest`),
     appleWebApp: { capable: true, title: 'Codelady', statusBarStyle: 'default' },
-    alternates: { languages: Object.fromEntries(LOCALES.map((l) => [l, `/${l}`])) },
   };
 }
 

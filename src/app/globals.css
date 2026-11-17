@@ -107,3 +107,14 @@ h1, h2 { hyphens: auto; }
   .rtable td[data-label]:not([data-label=""])::before { content: attr(data-label); display: block; margin-bottom: .1rem; font-size: .8rem; color: var(--ink-2); text-decoration: none; }
   .rtable td:empty { display: none; }
 }
+
+/* Visitors who ask for less motion: no smooth scroll, hover lifts or transitions. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

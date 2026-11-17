@@ -3,6 +3,7 @@ import type { LocalePack } from './types';
 export const pack: LocalePack = {
   ui: {
     metaDescription: 'Vérifiez un message de bourse suspect, préparez vos études à l’étranger, votre candidature à un emploi, et faites lire un texte en azerbaïdjanais.',
+    metaTitle: 'Codelady Skills : outils IA pour études, emploi et voix',
     skipToMain: 'Aller au contenu',
     skillsHeading: 'Outils',
     groups: { 'Səs': 'Voix', 'Xaricdə təhsil': 'Études et voyages', 'İş': 'Emploi', 'Marketinq': 'Marketing' },

@@ -3,6 +3,7 @@ import type { LocalePack } from './types';
 export const pack: LocalePack = {
   ui: {
     metaDescription: 'Перевірте підозріле повідомлення про стипендію, сплануйте навчання за кордоном, підготуйте відгук на вакансію, озвучте текст азербайджанською.',
+    metaTitle: 'Codelady Skills: ШІ для навчання, роботи та озвучення',
     skipToMain: 'Перейти до основного змісту',
     skillsHeading: 'Інструменти',
     groups: { 'Səs': 'Голос', 'Xaricdə təhsil': 'Навчання і поїздки', 'İş': 'Робота', 'Marketinq': 'Маркетинг' },
