@@ -3,6 +3,7 @@ import type { LocalePack } from './types';
 export const pack: LocalePack = {
   ui: {
     metaDescription: 'Shubhali stipendiya xabarini tekshiring, chet elda oʻqish rejasini tuzing, ishga ariza tayyorlang, ozarbayjoncha matnni ovozga aylantiring.',
+    metaTitle: 'Codelady Skills: taʼlim, ish va ovoz uchun AI vositalar',
     skipToMain: 'Asosiy qismga oʻtish',
     skillsHeading: 'Vositalar',
     groups: { 'Səs': 'Ovoz', 'Xaricdə təhsil': 'Oʻqish va safar', 'İş': 'Ish', 'Marketinq': 'Marketing' },

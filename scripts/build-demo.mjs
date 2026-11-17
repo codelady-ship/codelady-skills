@@ -54,6 +54,14 @@ writeFileSync(join(out, 'index.html'), `<!doctype html><html lang="az"><head><me
 `);
 writeFileSync(join(out, '.nojekyll'), '');
 
+// robots.txt, sitemap.xml and llms.txt with absolute URLs under the base path (scripts/seo-files.ts).
+const seo = spawnSync(process.execPath, ['--disable-warning=MODULE_TYPELESS_PACKAGE_JSON', '--import', './tests/helpers/hooks.mjs', 'scripts/seo-files.ts', out], {
+  cwd: root,
+  stdio: 'inherit',
+  env: { ...process.env, NEXT_PUBLIC_DEMO: '1', NEXT_PUBLIC_BASE_PATH: base },
+});
+if (seo.status !== 0) process.exit(seo.status ?? 1);
+
 // The export writes segment payloads as folders (__next.$d$lang/skills/$d$slug/__PAGE__.txt),
 // but the router prefetches them as one dotted file name (__next.$d$lang.skills.$d$slug.__PAGE__.txt).
 // A plain static host has no rewrite, so put a copy under the dotted name too.

@@ -13,6 +13,7 @@ import { LOCALES, hasLocale } from '@/i18n/config';
 import { UI } from '@/i18n/ui';
 import { localizeSkill } from '@/i18n/skills';
 import { IS_DEMO } from '@/lib/base';
+import { SITE_URL, clip, jsonLd, pageUrl, seoMeta } from '@/lib/site';
 
 export function generateStaticParams() {
   return LOCALES.flatMap((lang) => SKILLS.map((s) => ({ lang, slug: s.slug })));
@@ -23,11 +24,7 @@ export async function generateMetadata({ params }: PageProps<'/[lang]/skills/[sl
   const s = getSkill(slug);
   if (!s || !hasLocale(lang)) return {};
   const l = localizeSkill(s, lang);
-  return {
-    title: l.name,
-    description: l.tagline,
-    alternates: { languages: Object.fromEntries(LOCALES.map((x) => [x, `/${x}/skills/${slug}`])) },
-  };
+  return seoMeta({ lang, path: `/skills/${slug}`, title: l.name, description: clip(`${l.tagline} ${l.about}`) });
 }
 
 export default async function SkillPage({ params }: PageProps<'/[lang]/skills/[slug]'>) {
@@ -41,8 +38,23 @@ export default async function SkillPage({ params }: PageProps<'/[lang]/skills/[s
   const { buildRequest: _b, ...plain } = skill;
   void _b;
 
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: skill.name,
+    description: clip(`${skill.tagline} ${skill.about}`, 300),
+    url: pageUrl(lang, `/skills/${skill.slug}`),
+    inLanguage: lang,
+    applicationCategory: 'UtilitiesApplication',
+    operatingSystem: 'Web',
+    featureList: skill.gives,
+    isPartOf: { '@type': 'WebSite', name: 'Codelady Skills', url: SITE_URL },
+    author: { '@type': 'Person', name: 'Antiqa Jalilova' },
+  };
+
   return (
     <PageShell lang={lang} mode="tool" active={skill.slug}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(ld) }} />
         <div className="mb-8 max-w-[720px]">
           <div className="mb-3 flex items-center gap-3">
             <SkillMark skill={skill} size={30} />

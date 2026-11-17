@@ -19,7 +19,7 @@ function NavLinks({ lang, active, mode }: Props) {
   const href = (slug: string) => (mode === 'home' ? `#${slug}` : `/${lang}/skills/${slug}`);
   return (
     <>
-      <p className="mb-3 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-ink-2">{t.skillsHeading}</p>
+      <p className="mb-3 font-mono text-[0.75rem] uppercase tracking-[0.12em] text-ink-2">{t.skillsHeading}</p>
       {GROUPS.map((g) => {
         const list = skills.filter((s) => s.group === g);
         if (!list.length) return null;
@@ -32,7 +32,7 @@ function NavLinks({ lang, active, mode }: Props) {
                   <Link
                     href={href(s.slug)}
                     aria-current={active === s.slug ? 'page' : undefined}
-                    className={`flex min-h-11 items-center gap-2.5 rounded-md px-2 py-1.5 text-[0.95rem] hover:bg-paper-2 lg:pointer-fine:min-h-0 ${
+                    className={`flex min-h-11 items-center gap-2.5 rounded-md px-2 py-1.5 text-[0.95rem] hover:bg-paper-2 ${
                       active === s.slug ? 'bg-paper-2 font-medium' : ''
                     }`}
                   >

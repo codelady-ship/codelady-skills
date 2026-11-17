@@ -32,14 +32,14 @@ export function AccountNav({ lang, variant }: { lang: Locale; variant: 'side' | 
       <ul className="space-y-0.5">
         {links.map(([href, label]) => (
           <li key={href}>
-            <Link href={href} className="flex min-h-11 items-center rounded-md px-2 py-1.5 text-[0.95rem] hover:bg-paper-2 lg:pointer-fine:min-h-0">{label}</Link>
+            <Link href={href} className="flex min-h-11 items-center rounded-md px-2 py-1.5 text-[0.95rem] hover:bg-paper-2">{label}</Link>
           </li>
         ))}
       </ul>
       {user && (
         <div className="mt-2 px-2 text-[0.8rem] text-ink-2">
           <p className="break-anywhere" title={user.email}>{m.signedInAs(user.email)}</p>
-          <button type="button" onClick={() => signOut().then(() => location.reload())} className="mt-1 min-h-11 underline underline-offset-4 hover:text-ink lg:pointer-fine:min-h-0">
+          <button type="button" onClick={() => signOut().then(() => location.reload())} className="mt-1 min-h-11 underline underline-offset-4 hover:text-ink">
             {m.signOut}
           </button>
         </div>

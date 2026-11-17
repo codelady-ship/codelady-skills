@@ -154,11 +154,11 @@ export function SearchBox({ lang }: { lang: Locale }) {
                 <li key={h.key} role="option" aria-selected={i === active}>
                   <Link href={h.href} onClick={() => { setOpen(false); setQ(''); }} onMouseEnter={() => setActive(i)}
                     className={`flex gap-3 px-3 py-2.5 ${i === active ? 'bg-paper-2' : ''}`}>
-                    <span aria-hidden className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-[6px] font-mono text-[0.7rem] text-white" style={{ background: h.tone }}>{h.mark}</span>
+                    <span aria-hidden className="mt-0.5 grid h-7 w-7 shrink-0 place-items-center rounded-[6px] font-mono text-[0.75rem] text-white" style={{ background: h.tone }}>{h.mark}</span>
                     <span className="min-w-0">
                       <span className="block font-medium leading-snug">{h.name}</span>
                       <span className="block truncate text-[0.85rem] text-ink-2">{h.note}</span>
-                      <span className="block text-[0.72rem] uppercase tracking-wide text-ink-2/80">{h.badge}</span>
+                      <span className="block text-[0.75rem] uppercase tracking-wide text-ink-2/80">{h.badge}</span>
                     </span>
                   </Link>
                 </li>

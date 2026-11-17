@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { SKILLS } from '@/skills/registry';
@@ -6,15 +7,48 @@ import { SkillMark } from '@/components/SkillMark';
 import { hasLocale } from '@/i18n/config';
 import { UI } from '@/i18n/ui';
 import { localizeSkill } from '@/i18n/skills';
+import { jsonLd, pageUrl, seoMeta } from '@/lib/site';
+
+export async function generateMetadata({ params }: PageProps<'/[lang]'>): Promise<Metadata> {
+  const { lang } = await params;
+  if (!hasLocale(lang)) return {};
+  return seoMeta({ lang, title: UI[lang].metaTitle, description: UI[lang].metaDescription, absolute: true });
+}
 
 export default async function Home({ params }: PageProps<'/[lang]'>) {
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const t = UI[lang];
   const skills = SKILLS.map((s) => localizeSkill(s, lang));
+  // WebSite + the list of skills exactly as the cards below show them.
+  const ld = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        name: 'Codelady Skills',
+        url: pageUrl(lang),
+        description: t.metaDescription,
+        inLanguage: lang,
+        author: { '@type': 'Person', name: 'Antiqa Jalilova' },
+      },
+      {
+        '@type': 'ItemList',
+        name: t.homeTitle,
+        itemListElement: skills.map((s, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          url: pageUrl(lang, `/skills/${s.slug}`),
+          name: s.name,
+          description: s.tagline,
+        })),
+      },
+    ],
+  };
 
   return (
     <PageShell lang={lang} mode="home">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(ld) }} />
 
         <section className="pb-14">
           <h1 className="font-serif text-[2.3rem] font-semibold leading-[1.1] tracking-tight md:text-[3rem]">{t.homeTitle}</h1>
@@ -58,7 +92,7 @@ export default async function Home({ params }: PageProps<'/[lang]'>) {
                   <SkillMark skill={s} size={28} />
                   <span className="text-sm text-ink-2">{t.groups[s.group] || s.group}</span>
                   {s.access === 'pro' && (
-                    <span className="rounded border border-line px-1.5 py-0.5 font-mono text-[0.7rem] uppercase tracking-wider text-ink-2">
+                    <span className="rounded border border-line px-1.5 py-0.5 font-mono text-[0.75rem] uppercase tracking-wider text-ink-2">
                       {t.pro}
                     </span>
                   )}

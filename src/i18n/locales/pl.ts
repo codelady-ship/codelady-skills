@@ -3,6 +3,7 @@ import type { LocalePack } from './types';
 export const pack: LocalePack = {
   ui: {
     metaDescription: 'Sprawdź podejrzaną wiadomość o stypendium, zaplanuj studia za granicą, przygotuj podanie o pracę, zamień tekst po azersku na mowę.',
+    metaTitle: 'Codelady Skills: narzędzia AI do nauki, pracy i głosu',
     skipToMain: 'Przejdź do treści',
     skillsHeading: 'Narzędzia',
     groups: { 'Səs': 'Głos', 'Xaricdə təhsil': 'Nauka i podróże', 'İş': 'Praca', 'Marketinq': 'Marketing' },

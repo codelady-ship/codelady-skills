@@ -36,7 +36,7 @@ function List({ lang, onPick }: { lang: Locale; onPick?: () => void }) {
                 <li key={h.id}>
                   <Link href={`/${lang}/history#${h.id}`} onClick={onPick}
                     className="flex gap-2.5 rounded-md px-2 py-2 hover:bg-paper-2">
-                    <span aria-hidden className="mt-0.5 grid h-[22px] w-[22px] shrink-0 place-items-center rounded-[6px] font-mono text-[0.62rem] text-white"
+                    <span aria-hidden className="mt-0.5 grid h-[22px] w-[22px] shrink-0 place-items-center rounded-[6px] font-mono text-[0.75rem] text-white"
                       style={{ background: h.tone }}>
                       {h.mark}
                     </span>
@@ -65,7 +65,7 @@ export function HistoryPanel({ lang }: { lang: Locale }) {
   return (
     <aside aria-label={t.historyTitle} className="hidden w-64 shrink-0 xl:block">
       <div className="sticky top-8 max-h-[calc(100dvh-4rem)] overflow-y-auto pr-1">
-        <p className="mb-3 font-mono text-[0.72rem] uppercase tracking-[0.12em] text-ink-2">{t.historyTitle}</p>
+        <p className="mb-3 font-mono text-[0.75rem] uppercase tracking-[0.12em] text-ink-2">{t.historyTitle}</p>
         <List lang={lang} />
       </div>
     </aside>
@@ -88,12 +88,12 @@ export function HistoryButton({ lang }: { lang: Locale }) {
   return (
     <>
       <button type="button" onClick={() => setOpen(true)} aria-expanded={open}
-        className="flex h-11 shrink-0 items-center gap-2 rounded-lg border border-line bg-card px-3 text-[0.95rem] hover:bg-paper-2 xl:hidden">
+        className="flex h-11 min-w-11 shrink-0 items-center justify-center gap-2 rounded-lg border border-line bg-card px-3 text-[0.95rem] hover:bg-paper-2 xl:hidden">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden>
           <path d="M3 12a9 9 0 1 0 3-6.7M3 4v4h4M12 7v5l3 2" />
         </svg>
         <span className="hidden sm:inline">{t.historyButton}</span>
-        {count > 0 && <span className="rounded-full bg-ink px-1.5 font-mono text-[0.7rem] text-paper">{count}</span>}
+        {count > 0 && <span className="rounded-full bg-ink px-1.5 font-mono text-[0.75rem] text-paper">{count}</span>}
       </button>
       {open && (
         <div className="fixed inset-0 z-50 xl:hidden" role="dialog" aria-modal="true" aria-label={t.historyTitle}>

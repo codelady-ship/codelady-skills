@@ -3,6 +3,7 @@ import type { LocalePack } from './types';
 export const pack: LocalePack = {
   ui: {
     metaDescription: 'Prüfe eine verdächtige Stipendien-Nachricht, plane dein Studium im Ausland, bereite eine Bewerbung vor und lass aserbaidschanischen Text vorlesen.',
+    metaTitle: 'Codelady Skills: KI-Tools für Studium, Job und Sprache',
     skipToMain: 'Zum Inhalt springen',
     skillsHeading: 'Werkzeuge',
     groups: { 'Səs': 'Stimme', 'Xaricdə təhsil': 'Studium und Reisen', 'İş': 'Arbeit', 'Marketinq': 'Marketing' },
