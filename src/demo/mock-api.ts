@@ -5,6 +5,7 @@ import { buildLibrary } from '@/lib/library-build';
 import type { LibrarySkill } from '@/lib/library-types';
 import type { AccessInfo, SkillRow } from '@/lib/market/types';
 import { demoAnswer } from './answers';
+import { DEMO_ADMIN_EMAIL, adminGet, adminPost, resetAdminSandbox } from './admin-sandbox';
 
 type Json = Record<string, unknown>;
 const json = (data: unknown, status = 200, headers: Record<string, string> = {}) =>
@@ -48,10 +49,13 @@ function row(d: Demo, lang: Locale): SkillRow {
 // ---------- demo account, kept in this tab only ----------
 type State = { user: { id: string; email: string; isAdmin: boolean } | null; owned: Record<string, { kind: 'purchase' | 'trial'; date: string; until: string | null }> };
 const KEY = 'codelady-demo-market';
+// sessionStorage can be blocked (e.g. a third-party iframe in a strict browser): keep a copy in memory too.
+let memState: State | null = null;
 function load(): State {
-  try { return JSON.parse(sessionStorage.getItem(KEY) || '') as State; } catch { return { user: null, owned: {} }; }
+  try { const raw = sessionStorage.getItem(KEY); if (raw) return JSON.parse(raw) as State; } catch {}
+  return memState ? structuredClone(memState) : { user: null, owned: {} };
 }
-function save(s: State) { try { sessionStorage.setItem(KEY, JSON.stringify(s)); } catch {} }
+function save(s: State) { memState = s; try { sessionStorage.setItem(KEY, JSON.stringify(s)); } catch {} }
 
 function access(d: Demo, s: State): AccessInfo {
   if (d.pricing === 'free') return { allowed: true, via: 'free' };
@@ -129,10 +133,18 @@ async function market(path: string, method: string, body: Json, lang: Locale): P
   if (path === 'me') return json({ user: s.user, config: { authMode: 'mock', payments: 'mock', feePercent: 20 } });
   if (path === 'auth/mock') {
     const email = String(body.email || '').trim().toLowerCase() || 'buyer@mock.test';
-    save({ ...s, user: { id: `demo-${email}`, email, isAdmin: false } });
+    // The demo admin only opens the in-browser sandbox (admin-sandbox.ts): sample data, nothing is saved anywhere.
+    save({ ...s, user: { id: `demo-${email}`, email, isAdmin: email === DEMO_ADMIN_EMAIL } });
     return json({ ok: true });
   }
-  if (path === 'auth/signout') { save({ user: null, owned: {} }); return json({ ok: true }); }
+  if (path === 'auth/signout') { save({ user: null, owned: {} }); resetAdminSandbox(); return json({ ok: true }); }
+  if (path === 'admin') {
+    if (!s.user) return json({ error: 'login' }, 401);
+    if (!s.user.isAdmin) return json({ error: 'forbidden' }, 403);
+    await wait(250);
+    const r = method === 'GET' ? adminGet(lang) : adminPost(lang, body);
+    return json(r.body, r.status);
+  }
   if (path === 'rates') return json({ suggested: lang === 'az' ? 'AZN' : 'USD', rates: { USD: 1, AZN: 1.7, EUR: 0.92, TRY: 41, RUB: 80, GBP: 0.78 } });
 
   if (path === 'skills' && method === 'GET') return json({ skills: CATALOGUE.map((d) => row(d, lang)) });

@@ -13,6 +13,18 @@ const nextConfig: NextConfig = {
         ...(BASE_PATH ? { basePath: BASE_PATH } : {}),
       }
     : {}),
+  // Server deploy (Cloudflare Workers): only the portfolio may frame the admin page.
+  // A static export cannot send headers (GitHub Pages frames fine), so the demo build skips this.
+  ...(DEMO
+    ? {}
+    : {
+        async headers() {
+          return [{
+            source: '/:lang/admin',
+            headers: [{ key: 'Content-Security-Policy', value: "frame-ancestors 'self' https://antiqa-portfolio.vercel.app https://antiqacode.vercel.app" }],
+          }];
+        },
+      }),
   // Partial prerendering needs a server, so the static demo turns it off.
   cacheComponents: !DEMO,
   partialPrefetching: !DEMO,
