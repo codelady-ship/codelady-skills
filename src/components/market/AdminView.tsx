@@ -4,7 +4,8 @@ import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
 import type { Locale } from '@/i18n/config';
 import { MARKET, errorText } from '@/i18n/market';
-import { api, useMe } from '@/lib/market/client';
+import { api, reloadMe, useMe } from '@/lib/market/client';
+import { IS_DEMO } from '@/lib/base';
 import { TRIAL_CHOICES, type Grant, type Payout, type Pricing, type Profile, type Sale, type SkillRow } from '@/lib/market/types';
 import { Notice, PageTitle, btnPrimary, btnSmall, fmtDate, inputCls, usd } from './ui';
 
@@ -18,6 +19,16 @@ type Data = {
   balances: { creator_id: string; email: string; net: number; paid: number; balance: number }[];
   grantable: { id: string; name: string }[];
 };
+// Static demo (GitHub Pages): the admin runs on sample data in the browser (src/demo/admin-sandbox.ts).
+const DEMO_ADMIN = 'admin@mock.test';
+type DemoText = { note: string; enter: string };
+const DEMO_TEXT: Partial<Record<Locale, DemoText>> & { en: DemoText } = {
+  az: { note: 'Demo rejimi — dəyişikliklər saxlanmır. Nümunə məlumatdır, yalnız bu tabda qalır.', enter: 'Demo admin kimi daxil ol' },
+  en: { note: 'Demo mode — changes are not saved. Sample data, kept in this tab only.', enter: 'Sign in as demo admin' },
+  ru: { note: 'Демо-режим — изменения не сохраняются. Пример данных, только в этой вкладке.', enter: 'Войти как демо-админ' },
+  tr: { note: 'Demo modu — değişiklikler kaydedilmez. Örnek veriler, yalnızca bu sekmede.', enter: 'Demo yönetici olarak gir' },
+};
+
 type Tab = 'skills' | 'users' | 'sales' | 'grants' | 'payouts';
 
 // Tables get the "rtable" class: on phones each row becomes a card and data-label names the column (globals.css).
@@ -41,6 +52,21 @@ export function AdminView({ lang }: { lang: Locale }) {
   }, [lang]);
   useEffect(() => { if (user?.isAdmin) load(); }, [user, load]);
 
+  const demo = DEMO_TEXT[lang] || DEMO_TEXT.en;
+  const [entering, setEntering] = useState(false);
+  const enterDemo = useCallback(async () => {
+    setEntering(true);
+    await api('auth/mock', { email: DEMO_ADMIN });
+    await reloadMe();
+    setEntering(false);
+  }, []);
+  // /admin/?demo=1 (the portfolio's iframe) opens straight into the demo admin.
+  useEffect(() => {
+    if (IS_DEMO && loaded && !user?.isAdmin && new URLSearchParams(location.search).get('demo') === '1') {
+      api('auth/mock', { email: DEMO_ADMIN }).then(() => reloadMe());
+    }
+  }, [loaded, user]);
+
   async function act(body: Record<string, unknown>) {
     setMsg(null);
     const r = await api('admin', body);
@@ -49,7 +75,15 @@ export function AdminView({ lang }: { lang: Locale }) {
     return r.ok;
   }
 
-  if (!loaded) return <p className="text-ink-2">{m.loading}</p>;
+  if (!loaded || entering) return <p className="text-ink-2">{m.loading}</p>;
+  if (IS_DEMO && !user?.isAdmin) {
+    return (
+      <div className="max-w-[520px] space-y-4">
+        <Notice>{demo.note}</Notice>
+        <button type="button" className={btnPrimary} onClick={enterDemo}>{demo.enter} · {DEMO_ADMIN}</button>
+      </div>
+    );
+  }
   if (!user) return <Notice>{m.errors.login} <Link href={`/${lang}/signin?next=/${lang}/admin`} className="font-medium underline underline-offset-4">{m.signIn}</Link></Notice>;
   if (!user.isAdmin) return <Notice tone="error">{m.notAdmin}</Notice>;
 
@@ -57,6 +91,7 @@ export function AdminView({ lang }: { lang: Locale }) {
   return (
     <>
       <PageTitle title={m.adminTitle} />
+      {IS_DEMO && <div className="mb-4 max-w-[900px]"><Notice>{demo.note}</Notice></div>}
       <div role="tablist" className="mb-6 flex flex-wrap gap-2">
         {tabs.map(([k, label]) => (
           <button key={k} role="tab" aria-selected={tab === k} onClick={() => setTab(k)}
