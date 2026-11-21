@@ -18,7 +18,7 @@ const TEXT: Partial<Record<Locale, string>> & { en: string } = {
 export function DemoMode({ lang }: { lang: Locale }) {
   return (
     <div role="note" className="bg-ink px-4 py-2 text-center text-sm text-paper">
-      <strong className="mr-1 rounded bg-paper px-1.5 py-0.5 font-mono text-xs text-ink">DEMO</strong> {TEXT[lang] || TEXT.en}{' '}
+      <strong className="mr-1 rounded bg-paper px-1.5 py-0.5 font-mono text-xs font-medium text-ink">DEMO</strong> {TEXT[lang] || TEXT.en}{' '}
       <a href="https://github.com/codelady-ship/codelady-skills" className="inline-flex min-h-11 items-center px-1 align-middle underline underline-offset-4" target="_blank" rel="noopener noreferrer">GitHub</a>
     </div>
   );

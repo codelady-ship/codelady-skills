@@ -192,7 +192,7 @@ function SalesTab({ lang, data }: { lang: Locale; data: Data }) {
   const sum = (k: 'gross_cents' | 'fee_cents' | 'net_cents') => usd(live.reduce((n, s) => n + s[k], 0));
   return (
     <>
-      <p className="mb-4 leading-relaxed">{m.totals}: {m.sGross} <b className="font-mono">{sum('gross_cents')}</b> · {m.sFee} <b className="font-mono">{sum('fee_cents')}</b> · {m.sNet} <b className="font-mono">{sum('net_cents')}</b></p>
+      <p className="mb-4 leading-relaxed">{m.totals}: {m.sGross} <b className="font-mono font-medium">{sum('gross_cents')}</b> · {m.sFee} <b className="font-mono font-medium">{sum('fee_cents')}</b> · {m.sNet} <b className="font-mono font-medium">{sum('net_cents')}</b></p>
       {data.sales.length === 0 ? <p className="text-ink-2">{m.noSales}</p> : (
         <table className={table}>
           <thead className="text-sm text-ink-2"><tr><th className={th}>{m.colDate}</th><th className={th}>{m.colSkill}</th><th className={th}>{m.colBuyer}</th><th className={th}>{m.colCreator}</th><th className={th}>{m.sGross}</th><th className={th}>{m.sFee}</th><th className={th}>{m.sNet}</th></tr></thead>
@@ -261,7 +261,7 @@ function PayoutsTab({ lang, data, act }: TabProps) {
         <tbody>{data.balances.map((b) => (
           <tr key={b.creator_id} className="border-t border-line">
             <td className={td} data-label={m.colCreator}>{b.email}</td><td className={`${td} font-mono`} data-label={m.sNet}>{usd(b.net)}</td>
-            <td className={`${td} font-mono`} data-label={m.sPaid}>{usd(b.paid)}</td><td className={`${td} font-mono font-semibold`} data-label={m.sBalance}>{usd(b.balance)}</td>
+            <td className={`${td} font-mono`} data-label={m.sPaid}>{usd(b.paid)}</td><td className={`${td} font-mono font-medium`} data-label={m.sBalance}>{usd(b.balance)}</td>
             <td className={td}>
               <form className="flex flex-wrap gap-2" onSubmit={async (e) => {
                 e.preventDefault();
