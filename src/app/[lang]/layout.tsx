@@ -42,6 +42,7 @@ export default async function RootLayout({ children, params }: LayoutProps<'/[la
   return (
     <html lang={lang} suppressHydrationWarning className={`${plex.variable} ${plexMono.variable} ${serif.variable}`}>
       <head>
+        <meta name="darkreader-lock" />
         <script dangerouslySetInnerHTML={{ __html: THEME_SCRIPT }} />
       </head>
       <body className="min-h-dvh flex flex-col">
