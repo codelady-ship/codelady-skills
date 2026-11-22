@@ -47,7 +47,7 @@ if (status !== 0) process.exit(status);
 const out = join(root, 'out');
 const LOCALES = ['az', 'en', 'ru', 'tr', 'de', 'fr', 'es', 'it', 'pt', 'pl', 'uk', 'kk', 'uz', 'ka'];
 writeFileSync(join(out, 'index.html'), `<!doctype html><html lang="az"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"><title>Codelady Skills (demo)</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="darkreader-lock"><title>Codelady Skills (demo)</title>
 <script>(function(){var L=${JSON.stringify(LOCALES)},c='az';try{var m=document.cookie.match(/(?:^|; )lang=([a-z]+)/),s=m&&m[1];if(L.indexOf(s)>=0)c=s;else{var n=(navigator.languages||[navigator.language||'']);for(var i=0;i<n.length;i++){var x=String(n[i]).toLowerCase().split('-')[0];if(L.indexOf(x)>=0){c=x;break}}}}catch(e){}location.replace('${base}/'+c+'/')})()</script>
 <noscript><meta http-equiv="refresh" content="0;url=${base}/az/"></noscript></head>
 <body><a href="${base}/az/">Codelady Skills</a></body></html>
